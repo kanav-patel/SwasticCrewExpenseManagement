@@ -1,0 +1,10 @@
+### Create a new user
+POST http://localhost:5432/api/auth/signup
+Content-Type: application/json
+
+{
+  "name": "Kanav Patel",
+  "email": "kanav@example.com",
+  "password": "password123",
+  "role": "Admin"
+}

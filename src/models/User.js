@@ -24,6 +24,17 @@ const User = sequelize.define('User', {
     type: DataTypes.ENUM('Admin', 'Manager', 'Employee'),
     defaultValue: 'Employee',
   },
+  managerId: { // This column stores the ID of the user's manager
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'Users', // This is a reference to another user
+      key: 'id',
+    },
+  },
 });
+
+// A Manager (User) can have many Employees (Users)
+User.hasMany(User, { as: 'Employees', foreignKey: 'managerId' });
+User.belongsTo(User, { as: 'Manager', foreignKey: 'managerId' });
 
 export default User;

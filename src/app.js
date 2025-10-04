@@ -4,26 +4,32 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { sequelize } from './config/db.js';
-import authRoutes from './routes/auth.js';
 
-// Load environment variables
+// Import models to ensure they are registered with Sequelize
+import User from './models/User.js';
+import Expense from './models/Expense.js';
+import Approval from './models/Approval.js';
+import ApprovalRule from './models/ApprovalRule.js'; // <-- ADD THIS LINE
+
+// Import routes
+import authRoutes from './routes/auth.js';
+import expenseRoutes from './routes/expenses.js';
+
 dotenv.config();
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Test Route
 app.get('/', (req, res) => {
   res.send('🚀 Swastic Crew Expense Management API is running!');
 });
 
-// API Routes
+// Use routes
 app.use('/api/auth', authRoutes);
+app.use('/api/expenses', expenseRoutes);
 
-// Add a script to your package.json: "start": "node src/app.js"
 const PORT = process.env.PORT || 5000;
 
 sequelize.sync().then(() => {

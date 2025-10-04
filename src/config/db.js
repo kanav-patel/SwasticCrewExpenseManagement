@@ -12,6 +12,6 @@ export const sequelize = new Sequelize(
   {
     host: process.env.DB_HOST,
     dialect: 'postgres',
-    logging: false, // Set to true to see SQL queries in console
+    logging: false,
   }
 );
